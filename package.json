@@ -10,9 +10,20 @@
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
   },
   "dependencies": {
+    "@react-native-community/blur": "^3.6.0",
+    "@react-native-community/datetimepicker": "^3.4.3",
+    "@react-native-community/netinfo": "^6.0.0",
+    "@react-native-picker/picker": "^1.14.0",
+    "consistencss": "^1.6.0",
     "react": "17.0.1",
     "react-native": "0.64.0",
-    "react-native-biometrics": "^2.1.4"
+    "react-native-biometrics": "^2.1.4",
+    "react-native-device-info": "^8.0.8",
+    "react-native-gesture-handler": "^1.10.3",
+    "react-native-localhost": "^1.0.0",
+    "react-native-mmkv-storage": "^0.5.3",
+    "react-native-reanimated": "^2.1.0",
+    "react-native-ui-lib": "^5.22.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
