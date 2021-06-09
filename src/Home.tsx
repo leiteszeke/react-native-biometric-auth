@@ -40,7 +40,7 @@ const Home = ({
         const user = (await MMKV.getMapAsync('user')) as { id: number };
         const payload = getUniqueId();
 
-        const request = await fetch(`http://${localhost}:3001/biometrics`, {
+        const request = await fetch(`http://${localhost}:3500/biometrics`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

@@ -34,7 +34,7 @@ const Auth = ({
       });
 
       if (signature) {
-        const request = await fetch(`http://${localhost}:3001/bio-auth`, {
+        const request = await fetch(`http://${localhost}:3500/bio-auth`, {
           method: 'POST',
           headers: {
             'Content-type': 'application/json',
@@ -55,7 +55,7 @@ const Auth = ({
   }, [onLogin]);
 
   const login = async () => {
-    const request = await fetch(`http://${localhost}:3001/login`, {
+    const request = await fetch(`http://${localhost}:3500/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

@@ -1,0 +1,33 @@
+version: "3"
+
+services:
+  biometrics-api:
+    build: .
+    container_name: "biometrics-api"
+    ports:
+      - "3500:3500"
+      - "9229:9229"
+    expose:
+      - 3500
+      - 9229
+    volumes:
+      - .:/opt/app
+      - /opt/app/node_modules
+    links:
+      - biometrics-db
+
+  biometrics-db:
+    image: mongo:latest
+    container_name: "biometrics-db"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
+    ports:
+      - 27017:27017
+    volumes:
+      - mongodb_data_container:/data/db
+    expose:
+      - 27017
+
+volumes:
+  mongodb_data_container:

@@ -1,12 +1,13 @@
-const express = require('express');
+import express, { Request, Response } from 'express';
+import NodeRSA from 'node-rsa';
+import { readFileSync, writeFileSync } from 'fs';
+import { Buffer } from 'node:buffer';
+
 const app = express();
-const bodyParser = require('body-parser');
-const NodeRSA = require('node-rsa');
-const { readFileSync, writeFileSync } = require('fs');
 
-app.use(bodyParser.json());
+app.use(express.json());
 
-app.post('/login+', (req, res) => {
+app.post('/login+', (req: Request, res: Response) => {
   const { email, password } = req.body;
 
   if (email === 'ezequiel@leites.dev' && password === 'demo') {
@@ -16,7 +17,7 @@ app.post('/login+', (req, res) => {
   }
 });
 
-app.post('/biometrics', (req, res) => {
+app.post('/biometrics', (req: Request, res: Response) => {
   const { userId, payload, publicKey } = req.body;
 
   const outputFile = JSON.parse(
@@ -30,7 +31,7 @@ app.post('/biometrics', (req, res) => {
   res.status(200).json({});
 });
 
-app.post('/bio-auth', (req, res) => {
+app.post('/bio-auth', (req: Request, res: Response) => {
   const { signature, payload } = req.body;
 
   if (validate(signature, payload)) {
@@ -46,7 +47,7 @@ app.post('/bio-auth', (req, res) => {
   }
 });
 
-const validate = (signature, payload) => {
+const validate = (signature: string, payload: string) => {
   const database = JSON.parse(
     readFileSync('./database.json', { encoding: 'utf-8' }),
   );
@@ -59,9 +60,11 @@ const validate = (signature, payload) => {
 
   const publicKeyBuffer = Buffer.from(user.publicKey, 'base64');
   const key = new NodeRSA();
-  const signer = key.importKey(publicKeyBuffer, 'public-der');
+  const signer = key.importKey(publicKeyBuffer, 'pkcs1-public-der');
 
   return signer.verify(Buffer.from(payload), signature, 'utf8', 'base64');
 };
 
-app.listen(3001, () => console.log('Server running in port 3001'));
+const port = process.env.PORT || 3500;
+
+app.listen(port, () => console.log(`Server running in port ${port}`));
