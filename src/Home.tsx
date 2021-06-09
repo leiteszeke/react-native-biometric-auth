@@ -2,7 +2,7 @@ import C, { apply } from 'consistencss';
 import React, { useCallback, useEffect, useState } from 'react';
 import { View } from 'react-native';
 import ReactNativeBiometrics from 'react-native-biometrics';
-import { Button, Toast } from 'react-native-ui-lib';
+import { Button, Text, Toast } from 'react-native-ui-lib';
 import localhost from 'react-native-localhost';
 import { getUniqueId } from 'react-native-device-info';
 import { MMKV } from './utils';
@@ -82,15 +82,19 @@ const Home = ({
 
   return (
     <View style={apply(C.flex, C.justifyCenter, C.px4)}>
+      <View style={apply(C.justifyCenter, C.itemsCenter, C.mb4)}>
+        {!isSupported && <Text>Face ID not supported</Text>}
+      </View>
+
       <Button onPress={logout} label="Logout" style={C.mb2} />
       {isSupported && keyExists && (
         <Button onPress={remove} label="Remove Face ID" />
       )}
+
       <Toast
         visible={showToast}
         message="Do you want to login with Face ID?"
         position="bottom"
-        // @ts-expect-error
         action={{
           label: 'Aceptar',
           onPress: auth,
