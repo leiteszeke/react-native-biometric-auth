@@ -1,10 +1,11 @@
 import C, { apply } from 'consistencss';
 import React, { useCallback, useState } from 'react';
-import { View } from 'react-native';
+import { Platform, View } from 'react-native';
 import ReactNativeBiometrics from 'react-native-biometrics';
 import { Button, TextField } from 'react-native-ui-lib';
-import localhost from 'react-native-localhost';
 import { getUniqueId } from 'react-native-device-info';
+
+const localhost = '192.168.1.44';
 
 const Auth = ({
   onLogin,
@@ -21,9 +22,15 @@ const Auth = ({
   });
 
   const auth = useCallback(async () => {
-    const { success } = await ReactNativeBiometrics.simplePrompt({
-      promptMessage: 'Log in',
-    });
+    let success = true;
+
+    if (Platform.OS === 'ios') {
+      const prompt = await ReactNativeBiometrics.simplePrompt({
+        promptMessage: 'Log in',
+      });
+
+      success = prompt.success;
+    }
 
     if (success) {
       const payload = getUniqueId();
@@ -34,16 +41,19 @@ const Auth = ({
       });
 
       if (signature) {
-        const request = await fetch(`http://${localhost}:3500/bio-auth`, {
-          method: 'POST',
-          headers: {
-            'Content-type': 'application/json',
+        const request = await fetch(
+          `http://${localhost}:3500/biometrics/auth`,
+          {
+            method: 'POST',
+            headers: {
+              'Content-type': 'application/json',
+            },
+            body: JSON.stringify({
+              signature,
+              payload,
+            }),
           },
-          body: JSON.stringify({
-            signature,
-            payload,
-          }),
-        });
+        );
 
         const response = await request.json();
 
@@ -55,7 +65,7 @@ const Auth = ({
   }, [onLogin]);
 
   const login = async () => {
-    const request = await fetch(`http://${localhost}:3500/login`, {
+    const request = await fetch(`http://${localhost}:3500/auth/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

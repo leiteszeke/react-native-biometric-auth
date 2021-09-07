@@ -3,9 +3,10 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { View } from 'react-native';
 import ReactNativeBiometrics from 'react-native-biometrics';
 import { Button, Text, Toast } from 'react-native-ui-lib';
-import localhost from 'react-native-localhost';
 import { getUniqueId } from 'react-native-device-info';
 import { MMKV } from './utils';
+
+const localhost = '192.168.1.44';
 
 const Home = ({
   onLogout,
@@ -57,7 +58,7 @@ const Home = ({
         onKeyCreated();
       }
     } catch (e) {
-      console.log('Error', e);
+      console.error('Error', e);
     }
   }, [onKeyCreated]);
 

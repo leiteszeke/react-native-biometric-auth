@@ -145,7 +145,6 @@
 				EC1C46CF9BDE45BDAC5D3FB8 /* Pods-authBiometrics-authBiometricsTests.debug.xcconfig */,
 				6C4AB32EFDB7C3DBBF96FB51 /* Pods-authBiometrics-authBiometricsTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -485,6 +484,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = FQU3ME9YTV;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = authBiometrics/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -511,6 +511,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = FQU3ME9YTV;
 				INFOPLIST_FILE = authBiometrics/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

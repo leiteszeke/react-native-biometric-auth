@@ -4,7 +4,7 @@ import mongoose from 'mongoose';
 import UserSchema from './models/UserModel';
 import UserDeviceSchema from './models/UserDeviceModel';
 
-console.log(
+console.info(
   `Trying to connect to mongodb://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}`,
 );
 
@@ -15,7 +15,7 @@ mongoose.connect(
     if (err) {
       throw err;
     }
-    console.log('Connected');
+    console.info('Connected');
   },
 );
 
